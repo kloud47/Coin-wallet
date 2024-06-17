@@ -36,7 +36,13 @@ export const authoptions = {
                             password: hashpass
                         }
                     });
-
+                    await prisma.balance.create({
+                        data: {
+                            userId: user.id,
+                            amount: 2000*100,
+                            locked: 0
+                        }
+                    })
                     return {
                         id: user.id.toString(),
                         name: user.name,

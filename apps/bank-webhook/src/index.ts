@@ -1,9 +1,11 @@
-import express from "express";
-import db from "@repo/coindb/client"
+import express, { Express, Request, Response } from "express";
+import prisma from "@repo/coindb/client";
 
 const app = express();
 
-app.post("/hdfcWebhook", async (req, res) => {
+app.use(express.json())
+
+app.post("/hdfcWebhook", async (req: Request, res: Response) => {
     //TODO: Add zod validation here?
     // check if this request actually came form HDFC bank
     const paymentInformation: {
@@ -15,13 +17,13 @@ app.post("/hdfcWebhook", async (req, res) => {
         userId: req.body.user_identifier,
         amount: req.body.amount
     };
-    // Update balance in db, add txn
+    // Update balance in prisma, add txn
 
     try {
-        await db.$transaction([
-            db.balance.update({
+        await prisma.$transaction([
+            prisma.balance.update({
                 where: {
-                    userId: Number(paymentInformation.userId)
+                    userId: Number(paymentInformation.userId) 
                 },
                 data: {
                     amount: {
@@ -29,12 +31,12 @@ app.post("/hdfcWebhook", async (req, res) => {
                     }
                 }
             }),
-            db.onRampTransaction.updateMany({
+            prisma.onRampTransaction.updateMany({
                 where: {
                     token: paymentInformation.token
                 },
                 data: {
-                    
+                    status: "Success"
                 }
             })
         ]);
@@ -49,3 +51,5 @@ app.post("/hdfcWebhook", async (req, res) => {
         })
     }
 })
+
+app.listen(4000)

@@ -1,7 +1,8 @@
+
 export default function Dashboard (): JSX.Element {
     return (
-        <div>
-            
+        <div className="flex">
+            Dashboard
         </div>
     );
 }

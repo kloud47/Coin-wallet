@@ -1,13 +1,25 @@
 import express, { Express, Request, Response } from "express";
 import prisma from "@repo/coindb/client";
 
-const app = express();
+const app: Express = express();
 
 app.use(express.json())
 
 app.post("/hdfcWebhook", async (req: Request, res: Response) => {
     //TODO: Add zod validation here?
     // check if this request actually came form HDFC bank
+    // Checking so that I do not send to request twice =>
+    const check = await prisma.onRampTransaction.findFirst({
+        where: {
+            token: req.body.token
+        }
+    })
+    if (check) {
+        return res.status(411).json({
+            message: "request already sent"
+        })
+    }
+
     const paymentInformation: {
         token: string
         userId: string

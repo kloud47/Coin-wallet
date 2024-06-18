@@ -6,6 +6,7 @@ import { TextInput } from "@repo/ui/text-input";
 import { useState } from "react";
 import Doller from "../public/dollar.png"
 import { createRampTransaction } from "../app/lib/actions/createOnRampTransaction";
+import { useRouter } from "next/navigation";
 
 const SUPPORTED_BANKS = [
     {
@@ -20,11 +21,12 @@ const SUPPORTED_BANKS = [
 
 export const AddMoney = () => {
     // console.log(Doller);
+    const router = useRouter();
     const [amt, setAmt] = useState("")
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
     return (
-        <Card title="Add Money">
+        <Card ClassName="bg-[#231b28]" title="Add Money">
             <div className="w-full">
                 <TextInput placeholder="Amount" label="Amount" onChange={(val) => {setAmt(val)}} value={amt} />
                 <div className="py-4 text-left">
@@ -42,11 +44,12 @@ export const AddMoney = () => {
                         onClick={async () => {
                             await createRampTransaction(provider, amt)
                             setAmt("")
+                            router.refresh()
                             // window.location.href = redirectUrl || "";
                         }}
-                        className={"text-white bg-gray-800 hover:bg-[#13d8aa] flex rounded-3xl justify-center items-center"}>
+                        className={"text-white border w-[200px] hover:bg-[#13d8aa] hover:text-black"}>
                         <p>Add</p>
-                        <img className="m-2 h-auto w-[30px]" src={Doller.src} alt="Doller" />
+                        {/* <img className="m-2 h-auto w-[30px]" src={Doller.src} alt="Doller" /> */}
                     </Button>
                 </div>
             </div>

@@ -8,7 +8,8 @@ export const authoptions = {
             name: 'phone number',
             credentials: {
                 phone: { label: 'Phone number', type: 'number', placeholder: '1234567..' },
-                password: { label: 'password', type: 'password', placeholder: 'password' }
+                password: { label: 'password', type: 'password', placeholder: 'password' },
+                name: { label: 'Wallet-username', type: 'text', placeholder: "Wallet-username"}
             },
             async authorize(credentials: any) {
                 const hashpass = await bcrypt.hash(credentials.password, 10);
@@ -23,7 +24,8 @@ export const authoptions = {
                     if (passwordValid) {
                         return {
                             id: existingUser.id.toString(),
-                            phone: existingUser.phone
+                            phone: existingUser.phone,
+                            name: existingUser.name
                         }
                     }
                     return null;
@@ -33,7 +35,8 @@ export const authoptions = {
                     const user = await prisma.user.create({
                         data: {
                             phone: credentials.phone,
-                            password: hashpass
+                            password: hashpass,
+                            name: credentials.name
                         }
                     });
                     await prisma.balance.create({

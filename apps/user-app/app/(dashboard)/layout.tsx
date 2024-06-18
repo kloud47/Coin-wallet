@@ -7,7 +7,7 @@ export default function Layout({
 }): JSX.Element {
   return (
     <div className="flex h-[calc(100vh-70px)] w-[100%]">
-        <div className="w-[14%] bg-gradient-to-r from-[#636363] h-full mr-4 flex items-center">
+        <div className="w-[14%]  h-full mr-4 flex items-center">
             <div>
                 <SidebarItem  href={"/dashboard"} icon={<HomeIcon />} title="Home" />
                 <SidebarItem  href={"/transfer"} icon={<TransferIcon />} title="Transfer" />
@@ -15,7 +15,7 @@ export default function Layout({
                 <SidebarItem href={"/p2p"} icon={<P2PTransferIcon />} title="P2P Transfer" />
             </div>
         </div>
-        <div className="w-[85%]">
+        <div className="w-[85%] p-5">
             {children}
         </div>
     </div>
@@ -46,3 +46,5 @@ function P2PTransferIcon() {
     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
   </svg>
 }
+
+// bg-gradient-to-r from-[#636363]

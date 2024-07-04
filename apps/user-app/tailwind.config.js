@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["var(--inter)"],
+        poppins: ["var(--poppins)"],
+        Roboto: ["var(--roboto)"]
+      }
     },
   },
   plugins: [],

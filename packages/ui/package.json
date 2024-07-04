@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
+"./user-card": "./src/user-card.tsx",
+"./special-button": "./src/special-button.tsx",
     "./text-input": "./src/text-input.tsx",
     "./select": "./src/select.tsx",
     "./center": "./src/center.tsx",

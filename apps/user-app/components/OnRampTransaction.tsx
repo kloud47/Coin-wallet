@@ -5,10 +5,11 @@ export const OnRampTransactions = ({
     transactions
 }: {
     transactions: {
+        txnId: number,
         time: Date,
         amount: number,
-        status: "Success" | "Failure" | "Processing",
-        provider: string
+        status?: "Success" | "Failure" | "Processing",
+        provider?: string
     }[] 
 }) => {
     if (!transactions.length) {
@@ -18,9 +19,9 @@ export const OnRampTransactions = ({
             </div>
         </Card>
     } else {
-    return <Card ClassName={"bg-[#070633] no-scrollbar rounded-[30px]"} title="Recent Transactions">
+    return <Card ClassName={"bg-[#070633] hover:translate-y-[2px] no-scrollbar rounded-[30px]"} title="Recent Transactions">
         <div className="pt-2">
-            {transactions.map(t => <div className="flex justify-between">
+            {transactions.map(t => <div className="flex justify-between" key={t.txnId}>
                 <div>
                     <div className="text-sm flex">
                         Received INR
@@ -41,9 +42,3 @@ export const OnRampTransactions = ({
     </Card>
     }
 }
-
-// export const OnRampTransactions = () => {
-//     return <div>
-//         Hello
-//     </div>
-// }

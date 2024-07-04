@@ -6,11 +6,7 @@ export const authoptions = {
     providers: [
         CredentialsProvider({
             name: 'phone number',
-            credentials: {
-                phone: { label: 'Phone number', type: 'number', placeholder: '1234567..' },
-                password: { label: 'password', type: 'password', placeholder: 'password' },
-                name: { label: 'Wallet-username', type: 'text', placeholder: "Wallet-username"}
-            },
+            credentials: { },
             async authorize(credentials: any) {
                 const hashpass = await bcrypt.hash(credentials.password, 10);
                 const existingUser = await  prisma.user.findFirst({
@@ -60,9 +56,21 @@ export const authoptions = {
     ],
     secret: process.env.JWT_SECRET || "",
     callbacks: {
+        async jwt({ token, user }: any) {
+            // console.log("jwt token", { token, user, session });
+            // Persist the OAuth access_token and or the user id to the token right after signin
+            if (user) {
+                token.phone = user.phone
+            }
+                return token;
+        },
         async session({ token, session }: any) {
             session.user.id = token.sub
+            session.user.phone = token.phone
             return session;
-        }
+        },
+    },
+    pages: {
+        signIn: "/signup"
     }
 }

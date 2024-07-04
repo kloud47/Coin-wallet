@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.backgroundApp{
-    background: #232526;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #3a3b3d, #232526);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #323334, #1e1f20); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.bgBalance {
-    background: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
-}
-
-.CardBG1 {
-    background: linear-gradient(89.7deg, rgb(94, 33, 102) 2.8%, rgb(2, 22, 61) 97.8%);
-}
 
 @layer utilities {
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -26,8 +13,132 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
     }
+
+    .backgroundApp{
+        background: #1b1c1d;  /* fallback for old browsers */
+        
+    }
+    
+    .bgBalance {
+        background: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
+    }
+    
+    .CardBG1 {
+        background: linear-gradient(89.7deg, rgb(62, 29, 67) 2.8%, rgb(3, 21, 57) 97.8%);
+    }
+    .CardBG2 {
+        background: linear-gradient(-0deg, rgb(28, 38, 58) 2.8% , rgb(149, 129, 155) 97.8%);
+    }
+    .CardBG-Profile {
+        background: linear-gradient(50deg, rgb(45, 33, 52) 2.8%, rgb(60, 65, 68) 97.8%);
+    }
+
+    .boxShadow:hover {
+        box-shadow: rgba(35, 7, 77, 0.3) 0px -23px 25px 0px inset, rgba(31, 12, 93, 0.3) 0px -36px 30px 0px inset, rgba(37, 7, 87, 0.2) 0px -79px 40px 0px inset, rgba(56, 17, 114, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    }
+    
+    .center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .Words {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .Words span {
+        height: 100%;
+        margin: 20px;
+        animation: spin_words 6s infinite;
+    }
+
+    @keyframes spin_words {
+        10% {
+            transform: translateY(-112%);
+        }
+        25% {
+            transform: translateY(-100%);
+        }
+        35% {
+            transform: translateY(-212%);
+        }
+        50% {
+            transform: translateY(-200%);
+        }
+        60% {
+            transform: translateY(-312%);
+        }
+        75% {
+            transform: translateY(-300%);
+        }
+        85% {
+            transform: translateY(-412%);
+        }
+        100% {
+            transform: translateY(-400%);
+        }
+    }
+
+    .popup {
+        display: none;
+        transform: translateX(-20px);
+        animation-delay: 2s;
+    }
+    .popBtn:hover + .popup{
+        display: flex;
+    }
 }
 
-.boxShadow:hover {
-    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+/* @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap'); */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+
+.centerBtn {
+    width: 180px;
+    height: 60px;
+}
+
+.btn {
+    width: 180px;
+    height: 60px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #ba4fda;
+    outline: none;
+    transition: 1s ease-in-out;
+}
+
+.svgButton {
+    fill: none;
+    stroke: #fff;
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+}
+
+.btn:hover {
+    transition: 1s ease-in-out;
+    background: #ba4fda;
+}
+
+.btn:hover svg {
+    stroke-dashoffset: -480;
+}
+
+.btn span {
+    color: white;
+    font-size: 18px;
+    font-weight: 100;
+    position: absolute;
+    transform: translate(-25px ,-45px);
+}
+
+

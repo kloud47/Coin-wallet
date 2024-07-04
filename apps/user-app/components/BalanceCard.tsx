@@ -5,7 +5,7 @@ export const BalanceCard = ({amount, locked}: {
     amount: number;
     locked: number;
 }) => {
-    return <Card ClassName={"bgBalance "} title={"Balance"}>
+    return <Card ClassName={"bgBalance hover:translate-y-[2px]"} title={"Balance"}>
         <div className="flex justify-between border-b border-slate-300 p-2 pb-2">
             <div>
                 Unlocked balance

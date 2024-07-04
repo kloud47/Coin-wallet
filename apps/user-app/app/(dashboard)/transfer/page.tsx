@@ -27,6 +27,7 @@ async function getOnRampTransactions() {
         }
     });
     return txns.map(t => ({
+        txnId: t.id,
         time: t.startTime,
         amount: t.amount,
         status: t.status,
@@ -40,8 +41,10 @@ export default async function() {
     const transactions = await getOnRampTransactions();
 
     return <div className="w-[90%] p-4">
-        <div className=" text-[#fff] pb-3 italic CardBG1 p-10 p-3 rounded-[50px] duration-500 shadow-lg">
-            <div className="text-3xl hover:tracking-wider font-bold tracking-widest duration-500 p-5">Transfer</div>
+        <div className=" text-[#fff] pb-3 CardBG1 p-10 rounded-[50px] duration-500 shadow-lg">
+            <div className="text-3xl font-bold tracking-widest p-5">
+                <div className="hover:tracking-wider duration-500 font-Roboto">Transfer to Wallet</div>
+            </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
                 <AddMoney />

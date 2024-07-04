@@ -20,7 +20,6 @@ const SUPPORTED_BANKS = [
 ]
 
 export const AddMoney = () => {
-    // console.log(Doller);
     const router = useRouter();
     const [amt, setAmt] = useState("")
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");

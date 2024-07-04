@@ -24,7 +24,8 @@ export async function P2Ptransfer (to: string, amount: number) {
     try {
         await prisma.$transaction(async (txn) => {
             // We are locking the request so that they execute sequentially without interfering: 
-            await txn.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;
+            // mongoDB is safe from this type of folly
+            await txn.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`;// Locking
 
             const fromBalance = await txn.balance.findUnique({
                 where: { userId: Number(from) },
@@ -47,4 +48,14 @@ export async function P2Ptransfer (to: string, amount: number) {
             message: "Error in bank transfer"
         }
     }
+
+    await prisma.p2pTransfer.create({
+        data: {
+            amount: amount,
+            timestamp: new Date(),
+            fromUserID: Number(from),
+            toUserID: Number(toUser.id),
+            Username: toUser.name
+        }
+    })
 }

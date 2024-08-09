@@ -16,7 +16,7 @@ export const UserCard = ({ children, imgUrl, name, phone }: CardInterface) => {
         {!imgUrl && name && <div className="bg-[#ec3232] flex items-center justify-center text-2xl p-1 h-[70px] w-[70px] boxShadow shadow-lg text-[#fff] border-[#fff] rounded-2xl">
           {name?.substring(0, 2)}
         </div>}
-        {imgUrl && <img src={imgUrl} alt="user" className="h-[70px] w-[70px] shadow-xl boxShadow  text-[#fff] border-[#fff] rounded-2xl" />}
+        {imgUrl && <img src={imgUrl} alt="user" className="h-[70px] w-[70px] shadow-xl  text-[#fff] border-[#fff] rounded-2xl" />}
         <div className="text-black font-thin">
           {children}
         </div>

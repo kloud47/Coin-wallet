@@ -4,10 +4,12 @@ import ReactDom from "react-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function ({open, close}: {open: boolean, close: () => void}) {
     const [error, setError] = useState<string>();
     const session = useSession();
+    const router = useRouter();
 
     async function handleSubmitContact (e:any) {
         e.preventDefault();
@@ -16,6 +18,7 @@ export default function ({open, close}: {open: boolean, close: () => void}) {
         try{
             const result = await axios.post("http://localhost:3001/api/contact" , data);
             setError(result.data.msg)
+            router.refresh()
         } catch(error: any) {
             console.log(error.response.data)
         }
@@ -32,11 +35,7 @@ export default function ({open, close}: {open: boolean, close: () => void}) {
                 <div className="mx-auto text-[#fff] font-bold h-[10vh] text-4xl mb-3">Add Contact</div>
                 <form action="" onSubmit={handleSubmitContact} className="h-[45vh] flex flex-col w-full p-5 bg-[#342F39]">
                     <div className="text-[#f72c2c] w-full">{error}</div>
-                    {/* <label htmlFor="phone">Phone No.</label>
-                    <input type="text" name="phone" />
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" />
-                    <Button>Save</Button> */}
+
                     <label htmlFor="phone" className="pl-2 text-[#a7a5a5]">Phone</label>
                     <input type="text" name="phone" className=" outline-none opacity-50 z-10 p-1 text-[#fff] placeholder:text-slate-500 rounded-full mb-3 bg-[#53455f]"
                         required/>
@@ -45,7 +44,7 @@ export default function ({open, close}: {open: boolean, close: () => void}) {
                     <input type="text" name="name" className="outline-none opacity-50 rounded-full p-1 text-[#fff] placeholder:text-slate-500 mb-3 bg-[#53455f]"  
                         required/>
 
-                        <Button  className={"mt-10 mx-3 border border-[#35aab9] hover:bg-[#35aab9] hover:text-[#fff] text-[#35aab9]"}>Save</Button>
+                    <Button  className={"mt-10 mx-3 border border-[#35aab9] hover:bg-[#35aab9] hover:text-[#fff] text-[#35aab9]"}>Save</Button>
                 </form>
             </div>
         </>,

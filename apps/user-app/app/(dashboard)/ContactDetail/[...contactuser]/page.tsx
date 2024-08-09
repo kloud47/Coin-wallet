@@ -1,20 +1,22 @@
-import { Card } from "@repo/ui/card";
 import { Button } from "@repo/ui/button";
-import Avatar from "../../../public/Avatar.jpeg";
-import { FetchContact } from "../../../lib/actions/contactFunc";
 import PayContact from "../../../../components/Contacts/PayContact";
-// import { useEffect } from "react";
+import { DeleteContact, FetchContact } from "../../../lib/actions/contactFunc";
+import LendMoney from "../../../../components/Contacts/LendMoney";
 
 
 export default async function ({ params } : {params: {slug: string}} ) {
     const name = params.contactuser[0]
     const contactData = await FetchContact(name)
-
-    // function
+    
+    async function deleteContact (data: FormData) {
+        "use server"
+        const ok = data.get("itemId") 
+        const datadelete = await DeleteContact(contactData?.ContactPhone)
+    }
     
     return (
-        <div className="flex w-[90%] text-[#fff] pb-3 CardBG-Profile py-5 rounded-md duration-500 shadow-lg">
-            <div className="flex flex-col w-[55%] items-center border-r">
+        <div className="flex w-[90%] text-[#e0dfdf] pb-3 CardBG-Profile py-5 rounded-md duration-500 shadow-lg">
+            <div className="flex flex-col w-[55%] items-center border-r-2 border-[#635D68]">
                 <div className="w-[250px] h-[250px] rounded-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.4)]">
                     {!contactData?.contactProfile ? <div className="bg-[#ec3232] flex items-center justify-center text-[8rem] p-1 h-[250px] w-[250px] shadow-lg text-[#fff] rounded-full">
                     {name?.substring(0, 2)}
@@ -34,17 +36,24 @@ export default async function ({ params } : {params: {slug: string}} ) {
                                 CID - @{contactData?.ContactPhone} 
                             </div>
                             <div className="text-xl font-thin">
-                                Created - 12/02/24
+                                {contactData?.Created.toDateString()}
                             </div>
                         </div>
                     </div>
-                    <Button  className={"mt-[40px] mb-[10px] border w-[70%] border-[#35aab9] hover:bg-[#35aab9] hover:text-[#fff] text-[#35aab9]"}>Edit</Button>
+                    <div className="flex justify-center w-full px-5 space-x-5">
+                    <form action={deleteContact} className="w-[40%]">
+                        <input className="hidden" name="itemId" />
+                        <Button
+                            className={"mt-[40px] mb-[10px] border-2 w-full border-[#b9355c] hover:bg-[#b9355c] hover:text-[#fff] text-[#35aab9]"}>
+                            Delete
+                        </Button>
+                    </form>
+                    <Button  className={"mt-[40px] mb-[10px] border-2 w-[40%] border-[#35aab9] hover:bg-[#35aab9] hover:text-[#fff] text-[#35aab9]"}>Edit</Button>
+                    </div>
                 </div>
             </div>
-            <div className="w-[40%] pl-2 flex flex-col items-center justify-between">
-                <Card ClassName="flex flex-col items-center w-full bg-[#fff]">
-                    <Button  className={"mt-[40px] mb-[10px] border w-[70%] border-[#35aab9] hover:bg-[#35aab9] hover:text-[#fff] text-[#35aab9]"}>Lend Money</Button>
-                </Card>
+            <div className="w-[45%] pl-2 flex flex-col items-center justify-between">
+                <LendMoney />
                 <PayContact  phone={contactData?.ContactPhone} fromId={Number(contactData?.userID)}  />
             </div>
         </div>

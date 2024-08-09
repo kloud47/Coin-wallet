@@ -12,7 +12,7 @@ export function Card({
 }): JSX.Element {
   return (
     <div
-      className={`${ClassName} p-4 rounded-[55px] shadow-lg duration-500`}
+      className={`${ClassName} p-4 rounded-xl shadow-lg duration-500`}
     >
       <h1 className="text-2xl pl-2 pb-2 font-bold uppercase">
         {title}

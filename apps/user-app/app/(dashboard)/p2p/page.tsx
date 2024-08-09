@@ -34,7 +34,6 @@ async function getTransactions() {
 }
 
 export default async function() {
-    const balance = await getBalance()
     const transactions = await getTransactions()
     return <div className="w-[90%]">
         <div className=" text-[#fff] pb-3 CardBG1 p-10 rounded-[50px] duration-500 shadow-lg">
@@ -44,7 +43,6 @@ export default async function() {
                     <SendCard />
                 </div>
                 <div>
-                    <BalanceCard amount={balance.amount} locked={balance.locked} />
                     <div className={"pt-4"}>
                         <P2pTransactions transactions={transactions} />
                     </div>

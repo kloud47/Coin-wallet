@@ -36,7 +36,8 @@ export const POST = async ( req:NextRequest ) =>  {
                 givenName: name,
                 contactName: userData?.name || "",
                 ContactPhone: phone,
-                contactProfile: userData?.profile_url
+                contactProfile: userData?.profile_url,
+                Created: new Date()
             }
         })
     } catch (e) {

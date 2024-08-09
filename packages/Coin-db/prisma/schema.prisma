@@ -36,6 +36,7 @@ model contacts {
   givenName     String?
   ContactPhone  String     
   contactName   String
+  Created       DateTime
   contactProfile String?
   user          User       @relation(name: "ContactNameRelation", fields: [contactName], references: [name])
   phone         User       @relation(name: "ContactPhoneRelation", fields: [ContactPhone], references: [phone])
@@ -66,7 +67,8 @@ model p2pTransfer {
   id          Int   @id@default(autoincrement())
   amount      Int
   timestamp   DateTime
-  fromUserID  Int 
+  fromUserID  Int
+  message     String?
   fromUser    User  @relation(name: "FromUserRelation",fields: [fromUserID], references: [id])
   toUserID    Int
   toUser      User  @relation(name: "toUserRelation",fields: [toUserID], references: [id])

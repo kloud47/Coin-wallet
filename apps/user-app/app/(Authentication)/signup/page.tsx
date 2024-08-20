@@ -34,22 +34,22 @@ export default function () {
         <div className="w-screen h-screen flex justify-center items-center">
             <div className="h-[65vh] flex w-[60vw] bg-[#000] rounded-xl shadow-2xl">
                 <div className="w-[50%] bg-[#3c3146] rounded-l-xl p-6">
-                    <h1 className="font-black text-[#d161c2] text-3xl text-center border-b border-[#9d7b9c] pb-5">Register</h1>
+                    <h1 className="font-black text-[#fff] text-3xl text-center border-b border-[#9d7b9c] pb-5">Register</h1>
                     <form onSubmit={handleSubmit} className="flex flex-col pt-3">
                         <label htmlFor="phone" className="pl-2">Phone</label>
-                        <input type="number" name="phone" className=" outline-none opacity-50 z-10 p-1 text-[#fff] placeholder:text-slate-500 rounded-full mb-3 bg-[#53455f]"
+                        <input type="number" name="phone" className=" outline-none opacity-50 z-10 p-1 text-[#fff] placeholder:text-slate-500 rounded-md mb-3 bg-[#53455f]"
                             onChange={(e) => setPhone(e.target.value)}
                             value={phone}
                             required/>
 
                         <label htmlFor="password" className="pl-2">Password</label>
-                        <input type="password" name="password" className="outline-none opacity-50 rounded-full p-1 text-[#fff] placeholder:text-slate-500 mb-3 bg-[#53455f]"  
+                        <input type="password" name="password" className="outline-none opacity-50 rounded-md p-1 text-[#fff] placeholder:text-slate-500 mb-3 bg-[#53455f]"  
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required/>
 
                         <label htmlFor="name" className="pl-2">Username</label>
-                        <input type="name" name="name" className="outline-none opacity-50 p-1 text-[#fff] placeholder:text-slate-500 rounded-full mb-3 bg-[#53455f]"
+                        <input type="name" name="name" className="outline-none opacity-50 p-1 text-[#fff] placeholder:text-slate-500 rounded-md mb-3 bg-[#53455f]"
                                 onChange={(e) => setName(e.target.value)}
                                 value={name}
                                 />

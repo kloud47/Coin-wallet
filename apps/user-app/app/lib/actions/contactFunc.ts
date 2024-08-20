@@ -38,7 +38,7 @@ export async function PayContactUser (phone: string, message: string, amount: nu
             // We are locking the request so that they execute sequentially without interfering: 
             // mongoDB is safe from this type of folly
             await txn.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(fromId)} FOR UPDATE`;// Locking
-
+            
             const fromBalance = await txn.balance.findUnique({
                 where: { userId: Number(fromId) },
             });
@@ -96,4 +96,12 @@ export async function DeleteContact (phone: string) {
         }
     })
     redirect("/dashboard")
+}
+
+export async function getRecentContacts() {
+    const session = await getServerSession(authoptions);
+    const id = Number(session.user.id)
+    const data = await prisma.$queryRaw<{ givenName: string, contactProfile: string, username: string }[] >`SELECT "givenName", "contactProfile", "Username" FROM "p2pTransfer" LEFT OUTER JOIN "contacts" ON "Username" = "contactName" WHERE "userID" = ${id} ORDER BY "timestamp";`
+
+    return data;
 }

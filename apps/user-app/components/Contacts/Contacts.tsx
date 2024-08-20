@@ -12,7 +12,7 @@ export default function () {
         <div className="w-full p-4">
             {openModal && <AddContactModal open={openModal} close={() => setOpenModal(false)} />}
             <div className="flex mb-2">
-                <input type="text" placeholder="Search for contacts" className="rounded-full bg-[#aaa1af] placeholder:text-[#000] w-[30%] px-4 mx-2 focus:outline-none focus:border-b-[3px] focus:border-b-[#9959C6]"/>
+                <input type="text" placeholder="Search for contacts" className="rounded-full bg-[#aaa1af] placeholder:text-[#000] w-[45%] px-4 mx-2 focus:outline-none focus:border-b-[3px] focus:border-b-[#9959C6]"/>
                 <Button onClick={() => setOpenModal(true)}
                     className={"bg-[#9959C6] mx-7 hover:bg-[#13D8AA] popBtn"}>
                     <AddUser />

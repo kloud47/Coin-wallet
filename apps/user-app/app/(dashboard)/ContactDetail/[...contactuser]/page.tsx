@@ -1,15 +1,16 @@
+"use server"
 import { Button } from "@repo/ui/button";
 import PayContact from "../../../../components/Contacts/PayContact";
 import { DeleteContact, FetchContact } from "../../../lib/actions/contactFunc";
 import LendMoney from "../../../../components/Contacts/LendMoney";
 
 
-export default async function ({ params } : {params: {slug: string}} ) {
+export default async function ({ params } : {params: {contactuser: string}} ) {
     const name = params.contactuser[0]
-    const contactData = await FetchContact(name)
+    const contactData: any = await FetchContact(String(name))
     
     async function deleteContact (data: FormData) {
-        "use server"
+        "use server"// need to explicity mark it as server component for it to work inn form client component 
         const ok = data.get("itemId") 
         const datadelete = await DeleteContact(contactData?.ContactPhone)
     }

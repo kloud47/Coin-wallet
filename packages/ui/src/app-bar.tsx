@@ -27,10 +27,10 @@ export const AppBar = ({ user, onSignin, onSignout, avatar } : Appbar) => {
   return (
     <>
     <ul className="flex  justify-between w-screen px-3 h-[70px] fixed z-50">
-      <li className="text-3xl font-black text-[#fff] flex flex-col justify-center text-[#cac4ce]">
-        <Link href={"/"}>CoinWallet</Link>
+      <li className="text-3xl font-bold text-[#fff] flex flex-col justify-center text-[#D8B4FE]">
+        <Link href={"/"}><span className="text-[#d19a02] font-black text-4xl">Co</span>inWallet</Link>
       </li>
-      <li className="bg-[#b7acbf] w-[18%] h-[70%] zindex-100 hover:w-[30%] duration-700 font-bold text-lg rounded-[90px] flex items-center justify-end m-2 px-5 shadow-xl">
+      <li className="bg-[#b7acbf] w-[20%] h-[70%] zindex-100 hover:w-[30%] duration-700 font-bold text-lg rounded-[90px] flex items-center justify-end m-2 pl-5 shadow-xl">
         {username && <div className="hover:scale-110 mr-5">
           <Bell />
         </div>}
@@ -41,10 +41,10 @@ export const AppBar = ({ user, onSignin, onSignout, avatar } : Appbar) => {
           {avatar && username && <img src={String(avatar)} alt="image" className="rounded-full border h-full w-full hover:scale-110 duration-200 border-[#000]" />}
           {!avatar && username && <div className="bg-[#ec3232] flex items-center justify-center text-lg p-1 h-full w-full border-2 text-[#fff] border-[#fff] rounded-full">{username?.substring(0, 2)}</div>}
         </div>}
-      </li>
-      <li className="flex justify-center">
-          {!username && <Button onClick={() => router.push("/signin")}>Login</Button>}
-          <Button onClick={user ? onSignin : onSignout} className={"m-2 rounded-[50px] border-2 boxShadow"}>{user ? "Logout" : "Register"}</Button>
+        <div className="flex justify-center">
+            {/* {!username && <Button onClick={() => router.push("/signin")}>Login</Button>} */}
+            <Button onClick={user ? onSignin : onSignout} className={"m-2 rounded-[50px] bg-[#655284] boxShadow"}>{user ? "Logout" : "Signup"}</Button>
+        </div>
       </li>
     </ul>
     {/* {open && <ul className="bg-[#000] absolute z-50 h-[20vh] w-[15vw] right-0 mt-10 mr-10 rounded-lg flex flex-col items-center justify-center space-y-2">

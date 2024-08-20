@@ -1,47 +1,33 @@
-import { getServerSession } from "next-auth";
 import TxnGrid from "../../../components/transactions/txnGrid";
-import { authoptions } from "../../lib/auth";
-import prisma from "@repo/coindb/client";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import TransactionGraph from "../../../components/transactions/TransactionGraph";
-
-async function getTransactions() {
-    const session = await getServerSession(authoptions);
-    const user = Number(session?.user?.id);
-    const txns = await prisma.p2pTransfer.findMany({
-        where: {
-            OR:[
-                {toUserID: user},
-                {fromUserID: user},
-            ]
-        }
-    })
-    return txns.map(t => ({
-        id: t.id,
-        toId: t.toUserID,
-        fromId: t.fromUserID,
-        amount: t.amount,
-        toname: t.Username,
-        time: t.timestamp,
-        message: t.message
-    }))
-}
+import { BalanceCard } from "../../../components/BalanceCard";
+import { getBalance } from "../../lib/actions/getBalance";
+import { Card } from "@repo/ui/card";
+import { getTransactions } from "../../lib/actions/getTransactions";
+import { UserCard } from "@repo/ui/user-card";
+import { getRecentContacts } from "../../lib/actions/contactFunc";
 
 export default async function() {
+    const balance = await getBalance();
     const transactions = await getTransactions();
-    return <div className="flex w-[90%] font-Roboto CardBG-Profile rounded-xl">
-        <div className="w-[60%]">
-            <TransactionGraph transactions={transactions} />
+    const contactsArray = await getRecentContacts();
+
+
+    return <div className="flex lg:flex-row flex-col w-[90%] font-Roboto CardBG-Profile rounded-xl">
+        <div className="flex flex-col w-full lg:w-[55%] px-6 lg:pl-6 py-5">
+            <BalanceCard amount={balance.amount} locked={balance.locked} />
+            <Card ClassName="bg-[#8A8290] mb-2 mt-3" title="Recent">
+            <div className="flex flex-wrap bg-[#8a8290] rounded-xl p-2 border-t-2 border-black">
+                {contactsArray?.map(u => <UserCard name={String(u.givenName)} imgUrl={u.contactProfile!}>{ u.givenName?.split(' ').at(0) }</UserCard>)}
+            </div>
+            </Card>
         </div>
-        <div className=" text-[#fff] w-[40%]  duration-500 shadow-lg">
+        <div className=" text-[#fff] w-full lg:w-[45%]  duration-500 shadow-lg">
             <div className="text-3xl font-bold tracking-widestp-5 pt-4 pl-4">
                 <div className="">Transactions</div>
             </div>
             
             <div className="flex flex-col w-full justify-center p-2">
-                <div>
-                    <TxnGrid transactions={transactions} />
-                </div>
+                <TxnGrid transactions={transactions} />
             </div>
         </div>
     </div>

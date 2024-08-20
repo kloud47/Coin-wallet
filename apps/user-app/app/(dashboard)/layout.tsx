@@ -8,13 +8,13 @@ export default function Layout({
 }): JSX.Element {
   return (
     <div className="flex h-screen w-[100%] font-Roboto">
-        <div className="flex flex-col justify-center w-[14%] h-full mr-4 items-center">
-            <div>
+        <div className="flex flex-col justify-center w-[10%] h-full mr-4 items-center">
+            <div className="relative bg-black w-[70%] rounded-full flex flex-col justify-center py-5">
                 <SidebarItem  href={"/dashboard"} icon={<HomeIcon />} title="Home" />
                 <SidebarItem  href={"/transfer"} icon={<TransferIcon />} title="Transfer" />
                 <SidebarItem  href={"/transactions"} icon={<TransactionsIcon />} title="Transactions" />
                 <SidebarItem href={"/p2p"} icon={<P2PTransferIcon />} title="P2P Transfer" />
-                <Button className={"hover:-rotate-90 w-[80px] h-[80px] ml-6 mt-2 duration-200 ease-in rounded-full boxShadow bg-[#9959c6]"}>
+                <Button className={"hover:-rotate-90 w-[80px] h-[80px] mx-auto mt-2 duration-200 ease-in rounded-full boxShadow bg-[#9959c6]"}>
                   <div className=" duration-300 rounded-xl"><ScanQR /></div>
                 </Button>
             </div>

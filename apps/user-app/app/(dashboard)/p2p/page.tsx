@@ -1,22 +1,9 @@
 import { SendCard } from "../../../components/SendCard";
 import { BalanceCard } from "../../../components/BalanceCard";
-import { P2pTransactions } from "../../../components/p2pTransactions";
+import { P2pTransactions } from "../../../components/transactions/p2pTransactions";
 import { getServerSession } from "next-auth";
 import { authoptions } from "../../lib/auth";
 import prisma from "@repo/coindb/client";
-
-async function getBalance() {
-    const session = await getServerSession(authoptions);
-    const balance = await prisma.balance.findFirst({
-        where: {
-            userId: Number(session?.user?.id)
-        }
-    });
-    return {
-        amount: balance?.amount || 0,
-        locked: balance?.locked || 0
-    }
-}
 
 async function getTransactions() {
     const session = await getServerSession(authoptions);

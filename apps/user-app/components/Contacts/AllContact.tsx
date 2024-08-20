@@ -28,7 +28,7 @@ export default function () {
 
     return (
         <div className="flex flex-wrap mt-6 bg-[#8a8290] rounded-xl p-2">
-            {contactsArray?.map(u => <UserCard phone={String(u.ContactPhone)} name={String(u.givenName)} imgUrl={u.contactProfile!}>{ u.givenName?.split(' ').at(0) }</UserCard>)}
+            {contactsArray?.map(u => <UserCard name={String(u.givenName)} imgUrl={u.contactProfile!}>{ u.givenName?.split(' ').at(0) }</UserCard>)}
         </div>
     );
 }

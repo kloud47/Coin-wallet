@@ -26,7 +26,7 @@ export const BalanceCard = ({amount, locked}: {
             <div className="text-slate-400 italic">
                 Total Balance
             </div>
-            <div className="text-3xl">
+            <div className="text-3xl text-white">
                 {(locked + amount) / 100} INR
             </div>
         </div>

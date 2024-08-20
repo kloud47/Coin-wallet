@@ -1,6 +1,8 @@
 import { Card } from "@repo/ui/card";
 import Contacts from "../../../components/Contacts/Contacts";
 import { Button } from "@repo/ui/button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
 
 export default function Dashboard (): JSX.Element {
@@ -16,7 +18,16 @@ export default function Dashboard (): JSX.Element {
                             <div>Loans</div>
                         </Card>
                         <Card ClassName="h-[50%] w-full bg-[#A89EAF] text-slate-600 flex justify-center items-center">
-                            <div>Split</div>
+                            <div className="w-full h-full grid grid-cols-2">
+                                <div className="cursor-pointer group border-2 border-dashed border-blue-700 h-[90%] rounded-xl flex justify-center items-center flex-col bg-[#96ecff] bg-opacity-30">
+                                    <Plus size={40} color="blue" className="group-hover:scale-125 duration-200" />
+                                    <span className="text-lg">Create split</span>
+                                </div>
+                                <div className="flex flex-col justify-center items-center">
+                                    <Link href={"/"}>Split</Link>
+                                    <div className="text-lg text-[#603f95]">{`pending - 8`}</div>
+                                </div>
+                            </div>
                         </Card>
                     </div>
                     <div className="col-span-3 grid grid-cols-3 space-x-1 ">

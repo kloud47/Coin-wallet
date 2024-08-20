@@ -1,20 +1,17 @@
 "use client"
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 export const SidebarItem = ({ href, title, icon }: { href: string; title: string; icon: React.ReactNode }) => {
     const router = useRouter();
     const pathname = usePathname()
     const selected = pathname === href
 
-    return <div className={`flex ${selected ? "text-[#fcf00f]" : "text-[#fff]"} hover:bg-[#000] duration-500 hover:scale-110 duration-500 rounded-r-xl cursor-pointer  p-2 pl-8 flex items-center`} onClick={() => {
+    return <div className={`flex ${selected ? "text-[#f2b202] font-bold" : " text-purple-300"} w-[70%] mx-auto hover:bg-[#3E1D43] duration-300 rounded-full cursor-pointer  p-2 items-center`} onClick={() => {
         router.push(href);
     }}>
-        <div className="p-2 ">
+        <div className="mx-auto py-2">
             {icon}
-        </div>
-        <div className={`font-bold ${selected ? "text-[#fcf00f]" : "text-[#fff]"} duration-500 hover:opacity-100 opacity-0 ml-2`}>
-            {title}
         </div>
     </div>
 }

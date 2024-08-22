@@ -1,0 +1,48 @@
+import { Button } from "@repo/ui/button";
+import { Card } from "@repo/ui/card";
+import { Plus } from "lucide-react";
+import Link from "next/link";
+
+export default function Split () {
+    return (
+        <div className="flex flex-col w-[90%] font-Roboto CardBG-Profile rounded-xl p-4">
+            <div className="text-3xl font-bold tracking-widest p-5">
+                <div className="font-Roboto text-[#B7ACBF]">Split</div>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-x-2">
+                <Card title="Active Splits" ClassName="relative bg-[#726b7a]">
+                    <ul className="w-full">
+                        <li className="bg-[#d6d2d9] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                        <li className="bg-[#c0bcc2] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                        <li className="bg-[#d6d2d9] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                        <li className="bg-[#c0bcc2] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                    </ul>
+                </Card>
+                <Card ClassName="bg-[#adb6ba] lg:mt-0 mt-2">
+                        <div className="grid grid-cols-2 items-center">
+                            <div className="text-xl">Total Pending - <span className="text-2xl font-bold italic">{200}</span></div>
+                            <div className="flex">
+                                <div className="text-center leading-10 mx-2 italic text-[#833482] font-bold">{"pay in one go "}</div>
+                                <Button className={"mx-2 hover:bg-[#13D8AA] w-[40%] bg-[#864CB4] shadow-lg"}>Pay all</Button>
+                            </div>
+                        </div>
+                        <Card ClassName="bg-[#e1e1e1] mt-4 flex items-center w-1/2 justify-between">
+                            <div className="text-xl">Create Split</div>
+                            <Link href={"/split/create-split"}>
+                                <Button className={"mx-2 hover:bg-[#13D8AA] bg-[#864CB4] shadow-lg"}><Plus /></Button>
+                            </Link>
+                        </Card>
+                        <Card ClassName="bg-[#E1E1E1] mt-2">
+                            <h1 className="text-xl">Previous</h1>
+                            <ul className="w-full">
+                                <li className="bg-[#d6d2d9] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                                <li className="bg-[#c0bcc2] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                                <li className="bg-[#d6d2d9] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                                <li className="bg-[#c0bcc2] w-full rounded-lg py-4 px-2 mb-2">ok</li>
+                            </ul>
+                        </Card>
+                </Card>
+            </div>
+        </div>
+    )
+}

@@ -8,20 +8,27 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  phone         String    @unique
-  password      String
-  name          String    @unique
-  profile_url   String?    @unique
-  public_id     String?
-  OnRampTransaction  OnRampTransaction[]
-  balance  Balance[]
-  sentTransfers  p2pTransfer[]  @relation(name: "FromUserRelation")
-  recievedTransfers  p2pTransfer[]  @relation(name: "toUserRelation")
-  recievedName    p2pTransfer[]   @relation(name: "toUsernameRelation")
+  id                  Int            @id @default(autoincrement())
+  phone               String         @unique
+  password            String
+  pin                 Int            @default(123)
+  name                String         @unique
+  profile_url         String?        @unique
+  public_id           String?
+  loanPending         String?
+  loans               Int[]
+  splitPending        Int?
+  splits              Int[]
+  OnRampTransaction   OnRampTransaction[]
+  balance             Balance[]
+  sentTransfers       p2pTransfer[]   @relation(name: "FromUserRelation")
+  recievedTransfers   p2pTransfer[]   @relation(name: "toUserRelation")
+  recievedName        p2pTransfer[]   @relation(name: "toUsernameRelation")
   contactNames        contacts[]      @relation(name: "ContactNameRelation")
   contactPhone        contacts[]      @relation(name: "ContactPhoneRelation")
-  contactProfile      contacts[]       @relation(name: "ContactProfileRelation")
+  contactProfile      contacts[]      @relation(name: "ContactProfileRelation")
+  split               Split[]         @relation(name: "SplitRelation")
+  loan                Loan[]         @relation(name: "loanRelation")
 }
 
 model Merchant {
@@ -38,8 +45,8 @@ model contacts {
   contactName   String
   Created       DateTime
   contactProfile String?
-  user          User       @relation(name: "ContactNameRelation", fields: [contactName], references: [name])
-  phone         User       @relation(name: "ContactPhoneRelation", fields: [ContactPhone], references: [phone])
+  user          User        @relation(name: "ContactNameRelation", fields: [contactName], references: [name])
+  phone         User        @relation(name: "ContactPhoneRelation", fields: [ContactPhone], references: [phone])
   profile       User?       @relation(name: "ContactProfileRelation", fields: [contactProfile], references: [profile_url])
   @@id(name: "contactID", [userID, ContactPhone])
 }
@@ -56,11 +63,11 @@ model OnRampTransaction {
 }
 
 model Balance {
-  id  Int @id @default(autoincrement())
-  userId  Int  @unique
+  id  Int            @id @default(autoincrement())
+  userId  Int        @unique
   amount  Int
   locked  Int
-  user    User @relation(fields: [userId], references: [id])
+  user    User       @relation(fields: [userId], references: [id])
 }
 
 model p2pTransfer {
@@ -74,6 +81,42 @@ model p2pTransfer {
   toUser      User  @relation(name: "toUserRelation",fields: [toUserID], references: [id])
   Username    String
   toUsername  User  @relation(name: "toUsernameRelation",fields: [Username], references: [name])
+}
+
+// model Members {
+//   id          Int     @id@default(autoincrement())
+//   contactName String
+//   name        String  @unique
+//   status      Boolean
+//   amountOwed  Int
+// }
+model Split {
+  id           Int       @id@default(autoincrement())
+  splitID        Int     @unique
+  amount       Int
+  timestamp    DateTime
+  title        String
+  content      String?
+  splitHost    Int
+  members      String[]
+  host         User      @relation(name: "SplitRelation", fields: [splitID], references: [id])
+  status       SplitStatus
+}
+
+model Loan {
+  id       Int     @id@default(autoincrement())
+  loanID   Int     @unique
+  amount   Int
+  timestamp DateTime
+  title     String
+  loanTo    Int
+  duration  DateTime
+  lender    User   @relation(name: "loanRelation", fields: [loanID], references: [id])
+}
+
+enum SplitStatus {
+  pending
+  complete
 }
 
 enum AuthType{

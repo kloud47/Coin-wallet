@@ -1,33 +1,86 @@
+"use client"
 import { Card } from "@repo/ui/card";
 import Contacts from "../../../components/Contacts/Contacts";
 import { Button } from "@repo/ui/button";
-import { Plus } from "lucide-react";
+import { BadgeIndianRupee, Plus, Users } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { getBalance } from "../../lib/actions/getBalance";
+import { BalanceCard } from "../../../components/BalanceCard";
+import airtelLogo from "../../public/airtel.jpg"
+import netflixLogo from "../../public/netflix.jpg"
+import spotifyLogo from "../../public/spotify.png"
+import crunchyrollLogo from "../../public/crunchyroll.png"
 
+export default function Dashboard () {
+    const [balance, setBalance] = useState<{ amount: number; locked: number; }>({ amount: 0, locked: 0 });
+    useEffect (() => {
+        const balanceData = async () => {
+            return await getBalance();
+        }
+        balanceData().then(data => setBalance(data));
 
-export default function Dashboard (): JSX.Element {
+    }, [])
+
     return (
         <>
-            <div className="w-[90%] h-[90%] p-2">
-                <div className=" text-[#fff] w-full h-full CardBG1 p-5 duration-500 rounded-lg CardBG-Profile shadow-lg grid rid-cols-3 gap-4">
-                    <Card ClassName="col-span-2 row-span-3 p-0 shadow-none bg-[#000]">
-                        {/* <img src={Credit.src} alt="" className="rounded-md w-full"/> */}
-                    </Card>
-                    <div className=" space-y-2 row-span-3 flex flex-col items-end text-3xl">
-                        <Card ClassName="h-[50%] w-full bg-[#A89EAF] text-slate-600 flex justify-center items-center">
-                            <div>Loans</div>
+            <div className="w-[90%] p-2">
+                <div className=" text-[#fff] w-full CardBG1 p-5 duration-500 rounded-lg CardBG-Profile shadow-lg grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    <Card ClassName="col-span-2 row-span-2 w-full">
+                        <BalanceCard amount={balance?.amount!} locked={balance?.locked!}  />
+                        <Card ClassName="bg-[#1B1C1D] mt-2" title="Recharge">
+                            <div className="flex space-x-4">
+                            <div className="flex flex-col p-2 justify-center items-center hover:bg-[#3b3d3f] rounded-lg">
+                                <Image src={airtelLogo.src} width={50} height={50} className="h-[50px] w-[50px] rounded-lg object-fit" alt="logo"/>
+                                <div className="text-sm">Airtel prepaid</div>
+                            </div>
+                            <div className="flex flex-col p-2 justify-center items-center hover:bg-[#3b3d3f] rounded-lg">
+                                <Image src={airtelLogo.src} width={50} height={50} className="h-[50px] w-[50px] rounded-lg object-fit" alt="logo"/>
+                                <div className="text-sm">Airtel postpaid</div>
+                            </div>
+                            <div className="flex flex-col p-2 justify-center items-center hover:bg-[#3b3d3f] rounded-lg">
+                                <Image src={netflixLogo.src} width={100} height={100} className="h-[50px] w-[50px] rounded-lg object-cover" alt="logo"/>
+                                <div className="text-sm">Netflix...</div>
+                            </div>
+                            <div className="flex flex-col p-2 justify-center items-center hover:bg-[#3b3d3f] rounded-lg">
+                                <Image src={crunchyrollLogo.src} width={50} height={50} className="h-[50px] w-[50px] rounded-lg object-fit" alt="logo"/>
+                                <div className="text-sm">Crunchyroll</div>
+                            </div>
+                            <div className="flex flex-col p-2 justify-center items-center hover:bg-[#3b3d3f] rounded-lg">
+                                <Image src={spotifyLogo.src} width={50} height={50} className="h-[50px] w-[50px] rounded-lg object-fit" alt="logo"/>
+                                <div className="text-sm">Spotify</div>
+                            </div>
+                            </div>
                         </Card>
-                        <Card ClassName="h-[50%] w-full bg-[#A89EAF] text-slate-600 flex justify-center items-center">
-                            <div className="w-full h-full grid grid-cols-2">
-                                <div className="cursor-pointer group border-2 border-dashed border-blue-700 h-[90%] rounded-xl flex justify-center items-center flex-col bg-[#96ecff] bg-opacity-30">
-                                    <Plus size={40} color="blue" className="group-hover:scale-125 duration-200" />
-                                    <span className="text-lg">Create split</span>
+                    </Card>
+                    <div className="row-span-1 grid grid-rows-2 text-3xl">
+                        <Card ClassName="w-full h-[90%] bg-[#e1d9e7] text-slate-600 flex justify-center items-center">
+                            <div className="w-full grid grid-cols-2">
+                                <div>
+                                    <BadgeIndianRupee size={50} color="#442F6E" />
+                                    <div>Loan</div>
                                 </div>
-                                <div className="flex flex-col justify-center items-center">
-                                    <Link href={"/"}>Split</Link>
-                                    <div className="text-lg text-[#603f95]">{`pending - 8`}</div>
+                                <div className="flex flex-col text-xl">
+                                    <div>Pending - 4</div>
+                                    <div className="p-2 bg-[#655284] rounded-lg text-white text-sm mt-2">{`due date - 2days`}</div>
                                 </div>
                             </div>
+                        </Card>
+                        <Card ClassName="w-full bg-[#bdb2c6] h-[90%] text-slate-600 flex justify-center items-center">
+                            <div className="w-full h-full grid grid-cols-2">
+                                <Link href={"/split/create-split"} className="cursor-pointer group border-2 border-dashed border-blue-700 h-[90%] rounded-xl flex justify-center items-center flex-col bg-[#96ecff] bg-opacity-30">
+                                    <Plus size={40} color="blue" className="group-hover:scale-125 duration-200" />
+                                    <span className="text-lg">Create split</span>
+                                </Link>
+                                <Link href={"split"} className="flex flex-col justify-center items-center">
+                                    <Users size={50} color="#442F6E" />
+                                    <div>Split</div>
+                                    <div className="text-lg text-[#603f95]">{`pending - 8`}</div>
+                                </Link>
+                            </div>
+                        </Card>
+                        <Card ClassName="w-full bg-[#A89EAF] h-[90%] text-slate-600">
                         </Card>
                     </div>
                     <div className="col-span-3 grid grid-cols-3 space-x-1 ">

@@ -92,7 +92,7 @@ model p2pTransfer {
 // }
 model Split {
   id           Int       @id@default(autoincrement())
-  splitID        Int     @unique
+  splitID      Int     @unique
   amount       Int
   timestamp    DateTime
   title        String

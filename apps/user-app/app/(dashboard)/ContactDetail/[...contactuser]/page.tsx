@@ -3,6 +3,8 @@ import { Button } from "@repo/ui/button";
 import PayContact from "../../../../components/Contacts/PayContact";
 import { DeleteContact, FetchContact } from "../../../lib/actions/contactFunc";
 import LendMoney from "../../../../components/Contacts/LendMoney";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 
 export default async function ({ params } : {params: {contactuser: string}} ) {
@@ -16,7 +18,10 @@ export default async function ({ params } : {params: {contactuser: string}} ) {
     }
     
     return (
-        <div className="flex w-[90%] text-[#e0dfdf] pb-3 CardBG-Profile py-5 rounded-md duration-500 shadow-lg">
+        <div className="relative flex w-[90%] text-[#e0dfdf] pb-3 CardBG-Profile py-5 rounded-md duration-500 shadow-lg">
+            <Link href={"/dashboard"} className="ml-4">
+                    <Button className={"bg-[#000] group"}><ArrowLeft size={40} className="group-hover:-translate-x-2 duration-300 ease-out" /></Button>
+            </Link>
             <div className="flex flex-col w-[55%] items-center border-r-2 border-[#635D68]">
                 <div className="w-[250px] h-[250px] rounded-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.4)]">
                     {!contactData?.contactProfile ? <div className="bg-[#ec3232] flex items-center justify-center text-[8rem] p-1 h-[250px] w-[250px] shadow-lg text-[#fff] rounded-full">

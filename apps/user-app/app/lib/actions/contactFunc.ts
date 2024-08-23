@@ -22,6 +22,24 @@ export default async function GetAllContacts() {
     return data;
 }
 
+export async function GetAllContacts2() {
+    const session = await getServerSession(authoptions);
+    const uID = Number(session?.user?.id);
+    const data = await prisma.contacts.findMany({
+        where: {
+            userID: uID,
+            // ContactPhone: "123456"
+        },
+        select: {
+            givenName: true,
+            contactName: true,
+            ContactPhone: true,
+            contactProfile: true,
+        }
+    })
+    return data;
+}
+
 export async function PayContactUser (phone: string, message: string, amount: number, fromId: number) {
     const toUser = await prisma.user.findFirst({
         where: {

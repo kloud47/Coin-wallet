@@ -5,11 +5,6 @@ import { ContactCard } from "./ContactCard";
 
 export default function SelectContact ({ searchTerm, data, setFunc }: { 
 searchTerm?: string,
-data : {
-    givenName: string | null;
-    ContactPhone: string;
-    contactProfile: string | null;
-}[],
     setFunc: Dispatch<SetStateAction<{ givenName: string | null; ContactPhone: string; contactProfile: string | null; }[]>>
 }) {
     const [contactsArray, setArray] = useState<{

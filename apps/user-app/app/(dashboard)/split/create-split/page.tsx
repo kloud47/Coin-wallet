@@ -1,12 +1,23 @@
 "use client"
-import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
 import CreateSplitForm from "../../../../components/split/CreateSplitForm";
-import SelectContact from "../../../../components/split/SelectContact";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
 import { ContactCard } from "../../../../components/split/ContactCard";
+import SelectContact from "../../../../components/split/SelectContact";
+import { Button } from "@repo/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { Card } from "@repo/ui/card";
+import { useState } from "react";
+import Link from "next/link";
+import { usedebounce } from "../../../hooks/hooks";
+
+// const debounce = (cb: () => void, delay = 1000) => {
+//     let timeout:any;
+//     return (...args) => {
+//         clearTimeout(timeout);
+//         timeout = setTimeout(() => {
+//             cb(...args)
+//         }, delay);
+//     }
+// }
 
 export default function CreateSplit () {
     const [onSelectData, setSelectData] =  useState<{ givenName: string | null; ContactPhone: string; contactProfile: string | null; }[]>([{
@@ -15,21 +26,15 @@ export default function CreateSplit () {
         ContactPhone: ""
     }]);
 
+    const handleSearch = async () => {
+        // console.log(search)
+    };
+
+
     const [search, setSearch] = useState("");
-    const [searchTerm, setSearchTerm] = useState("");
-    // const debounce = (cb: () => void , delay = 1000) => {
-    //     let timeout;
-    //     return (...args) => 
-    //     clearTimeout(timeout);
-    //     timeout = setTimeout(() => {
-    //         cb(...args)
-    //     }, delay);
-    // }
+    const debounceSearch = usedebounce(search)
     const handleChange = async (e:any) => {
         setSearch(e.target.value)
-        // debounce(() => {
-        //     setSearchTerm(e.target.value)
-        // })
     }
 
 
@@ -66,7 +71,9 @@ export default function CreateSplit () {
                         {/*--------------------------------------------------------------------------------------------------*/}
 
 
-                        <div className="flex flex-wrap bg-[#8a8290] rounded-t-lg border-b-2 border-black p-2">
+                        <div 
+                            className="flex flex-wrap bg-[#8a8290] rounded-t-lg border-b-2 border-black p-2">
+
                             {uniqueData.map((data,i) => <ContactCard  del={true} CardClass={"bg-[#a19fa1] group hover:bg-[#a15f73]"} name={data.givenName!} imgUrl={data.contactProfile!}
                             deleteFunc={() => {
                                 onSelectData.splice(i,1)
@@ -77,7 +84,7 @@ export default function CreateSplit () {
                                 {data.givenName}
                             </ContactCard>)}
                         </div>
-                        <SelectContact searchTerm={searchTerm} data={onSelectData!} setFunc={setSelectData} />
+                        <SelectContact searchTerm={debounceSearch} setFunc={setSelectData} />
                     </div>
                 </div>
                 <Card title="fill details" ClassName="bg-[#271b2c] text-[#e8e2f2] lg:mt-0 mt-2">

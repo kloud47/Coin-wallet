@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { easeIn, motion } from "framer-motion";
 
 interface CardInterface {
     children: React.ReactNode,
@@ -14,7 +15,14 @@ export const ContactCard = ({ children, imgUrl, name, ClickFunc, CardClass, dele
 
     return (
         <>
-            <div  onClick={ClickFunc} className={`${CardClass} relative h-[110px] w-[110px] bg-[#b8b1bc] m-1 duration-500 rounded-2xl flex flex-col items-center p-2 justify-between hover:bg-[#fff] hover:cursor-pointer`}>
+            <motion.div 
+                initial={{ x: -10, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: .2, easings: easeIn }} 
+
+                onClick={ClickFunc} 
+                className={`${CardClass} relative h-[110px] w-[110px] bg-[#b8b1bc] m-1 duration-500 rounded-2xl flex flex-col items-center p-2 justify-between hover:bg-[#fff] hover:cursor-pointer`}>
+                
                 {!imgUrl && name && <div className="bg-[#ec3232] flex items-center justify-center text-2xl p-1 h-[70px] w-[70px] boxShadow shadow-lg text-[#fff] border-[#fff] rounded-2xl">
                     {name?.substring(0, 2)}
                 </div>}
@@ -23,7 +31,7 @@ export const ContactCard = ({ children, imgUrl, name, ClickFunc, CardClass, dele
                     {children}
                 </div>
                 {del && <div onClick={deleteFunc} className={`bg-[#c73939] group-hover:scale-125 duration-150 absolute top-0 right-0 z-10 rounded-full`} ><X size={15} /></div>}
-            </div>
+            </motion.div>
         </>
     );
 };

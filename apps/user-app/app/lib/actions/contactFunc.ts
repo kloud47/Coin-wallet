@@ -22,6 +22,40 @@ export default async function GetAllContacts() {
     return data;
 }
 
+export async function SearchAllContacts(searchTerm : string) {
+    const session = await getServerSession(authoptions);
+    const uID = Number(session?.user?.id);
+    const data = await prisma.contacts.findMany({
+        where: {
+            AND: [
+                {
+                    userID: uID,
+                },
+                {
+                    OR: [
+                        {
+                            givenName: {
+                                startsWith: searchTerm
+                            }
+                        },
+                        {
+                            ContactPhone: {
+                                startsWith: searchTerm
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        select: {
+            givenName: true,
+            ContactPhone: true,
+            contactProfile: true,
+        }
+    })
+    return data;
+}
+
 export async function GetAllContacts2() {
     const session = await getServerSession(authoptions);
     const uID = Number(session?.user?.id);

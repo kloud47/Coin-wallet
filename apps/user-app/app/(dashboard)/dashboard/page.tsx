@@ -2,7 +2,7 @@
 import { Card } from "@repo/ui/card";
 import Contacts from "../../../components/Contacts/Contacts";
 import { Button } from "@repo/ui/button";
-import { BadgeIndianRupee, Plus, Users } from "lucide-react";
+import { ArrowLeftRight, BadgeIndianRupee, Plus, Users, WalletCards } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -25,7 +25,8 @@ export default function Dashboard () {
 
     return (
         <>
-            <div className="w-[90%] p-2">
+            <div className="relative w-[90%] p-2">
+                <div className="absolute top-0 bg-[#322B39] -translate-y-2 text-3xl px-5 font-thin rounded-t-xl text-[#787775] py-2">Dasboard</div>
                 <div className=" text-[#fff] w-full CardBG1 p-5 duration-500 rounded-lg CardBG-Profile shadow-lg grid md:grid-cols-2 lg:grid-cols-3 gap-2">
                     <Card ClassName="col-span-2 row-span-2 w-full">
                         <BalanceCard amount={balance?.amount!} locked={balance?.locked!}  />
@@ -84,20 +85,24 @@ export default function Dashboard () {
                         </Card>
                     </div>
                     <div className="col-span-3 grid grid-cols-3 space-x-1 ">
-                        <div className="flex flex-col items-center justify-center rounded-r-none rounded-l-3xl h-full bg-[#B7ACBF] text-slate-700">
-                            <Wallet />
-                            <div className="font-bold text-xl text-purple-800">Wallet</div>
-                            <div className="flex gap-x-8 mt-2">
-                                <Button className="rounded-xl text-lg border">Add Money</Button>
-                                <Button className="rounded-xl text-lg border">Balance</Button>
+                        <div className="grid grid-cols-2 items-center justify-center rounded-r-none rounded-l-3xl h-full bg-[#B7ACBF] text-slate-700">
+                            <div className="mx-auto font-bold text-2xl text-[#475569]">
+                                <WalletCards color="#442F6E" size={40} className="mx-auto" />
+                                <span>Wallet</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <div className="w-full text-center border-b text-lg hover:bg-[#6d627f] hover:text-white duration-200 border-[#312E39] py-4">Add Money</div>
+                                <div className="w-full text-center border-t text-lg hover:bg-[#6d627f] hover:text-white duration-200 border-[#312E39] py-4">Balance</div>
                             </div>
                         </div>
-                        <div className="flex flex-col items-center justify-center h-full bg-[#B7ACBF] text-slate-700">
-                            <Money />
-                            <div className="font-bold text-xl text-purple-800">Transfer</div>
-                            <div className="flex gap-x-8 mt-2">
-                                <div className="rounded-xl text-lg">Send Money</div>
-                                <div className="rounded-xl text-lg">Transactions</div>
+                        <div className="grid grid-cols-2 items-center justify-center rounded-r-none h-full bg-[#B7ACBF] text-slate-700">
+                            <div className="mx-auto font-bold text-2xl text-[#475569]">
+                                <ArrowLeftRight color="#442F6E" size={40} className="mx-auto" />
+                                <span>Transfer</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <div className="w-full text-center border-b text-lg hover:bg-[#6d627f] hover:text-white duration-200 border-[#312E39] py-4">Send Money</div>
+                                <div className="w-full text-center border-t text-lg hover:bg-[#6d627f] hover:text-white duration-200 border-[#312E39] py-4">Transactions</div>
                             </div>
                         </div>
                         <div className="flex flex-col items-center rounded-r-2xl justify-center h-full bg-[#B7ACBF] text-slate-700"></div>
@@ -114,16 +119,4 @@ export default function Dashboard () {
             </div>
         </>
     );
-}
-
-function Wallet () {
-    return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
-    </svg>
-}
-
-function Money () {
-    return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-    </svg>
 }

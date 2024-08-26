@@ -1,10 +1,9 @@
 "use client"
 import { UserCard } from "@repo/ui/user-card";
-import GetAllContacts from "../../app/lib/actions/contactFunc";
-import { useSession } from "next-auth/react";
+import { SearchAllContacts } from "../../app/lib/actions/contactFunc";
 import { useEffect, useState } from "react";
 
-export default function () {
+export default function ({ searchTerm }: { searchTerm: string }) {
     const [contactsArray, setArray] = useState<{
         givenName: string | null;
         ContactPhone: string;
@@ -15,7 +14,7 @@ export default function () {
     useEffect(() => {
         const getContacts = async () => {
             try {
-                const contactData = await GetAllContacts();
+                const contactData = await SearchAllContacts(searchTerm);
                 setArray(contactData)
                 console.log(contactData)
             } catch (e: any) {
@@ -23,7 +22,7 @@ export default function () {
             }
         }
         getContacts();
-    },[])
+    },[searchTerm])
 
 
     return (

@@ -83,23 +83,27 @@ model p2pTransfer {
   toUsername  User  @relation(name: "toUsernameRelation",fields: [Username], references: [name])
 }
 
-// model Members {
-//   id          Int     @id@default(autoincrement())
-//   contactName String
-//   name        String  @unique
-//   status      Boolean
-//   amountOwed  Int
-// }
+model Members {
+  id           Int     @id@default(autoincrement())
+  splitID      Int
+  split        Split   @relation(name: "SplitMember", fields: [splitID], references: [splitID], onDelete: Cascade)
+  contactName  String
+  phone        String  @unique
+  status       SplitStatus
+  amountOwed   Int
+}
+
 model Split {
   id           Int       @id@default(autoincrement())
-  splitID      Int     @unique
+  splitID      Int       @unique
   amount       Int
   timestamp    DateTime
   title        String
   content      String?
   splitHost    Int
   members      String[]
-  host         User      @relation(name: "SplitRelation", fields: [splitID], references: [id])
+  member       Members[]        @relation(name: "SplitMember")
+  host         User      @relation(name: "SplitRelation", fields: [splitHost], references: [id])
   status       SplitStatus
 }
 

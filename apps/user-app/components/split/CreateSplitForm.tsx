@@ -2,6 +2,7 @@
 import { Button } from "@repo/ui/button";
 import axios from "axios";
 import { useState } from "react";
+import { CreateSplit } from "../../app/lib/actions/SplitFunc";
 
 export default function CreateSplitForm ({ memberData }: { memberData: {
     givenName: string | null;
@@ -9,7 +10,12 @@ export default function CreateSplitForm ({ memberData }: { memberData: {
     contactProfile: string | null;
 }[] 
 }) {
-    const [formState, setFormState] = useState({
+    const [formState, setFormState] = useState<{ 
+        inputAmt: string, 
+        inputTitle: string, 
+        inputContent: string, 
+        inputMembers: string[]
+    }>({
         inputAmt: "",
         inputTitle: "",
         inputContent: "",
@@ -26,13 +32,23 @@ export default function CreateSplitForm ({ memberData }: { memberData: {
     const handleSubmit = async (e:any) => {
         e.preventDefault();
         console.log(formState);
-        // setFormState(prev => prev.inputMembers = [...memberData])
-        const memAmt = Number(formState.inputAmt) / Number(memberData.length);
-        console.log(memAmt,"amt");
+
+        memberData.map(data => formState.inputMembers.push(data.givenName!))
+
+        // const response = await axios.post("/createSplit", formState)
+        const response = await CreateSplit(formState);
+
+        // if (response.status == 200) {
+        //     console.log(response.data)
+        // } else {
+        //     console.log("not ok")
+        // }
+
+        // console.log(formState);
+
+        console.log(response);
 
         setFormState({inputAmt: "", inputTitle: "", inputContent: "", inputMembers: []})
-
-        // const response = await axios()
     }
 
     return (
@@ -49,11 +65,11 @@ export default function CreateSplitForm ({ memberData }: { memberData: {
             <div className="my-4">
                 <h3 className="text-[#271B2C] text-lg">Members</h3>
                 <ul className="flex">
-                    {memberData.map(member => <li className="mx-1 bg-[#b5a4c1] py-1 px-2 rounded-lg">{member.givenName}</li>)}
+                    {memberData.map(member => <li className="mx-1 bg-[#b5a4c1] py-1 px-2 rounded-lg shadow-md">{member.givenName}</li>)}
                 </ul>
             </div>
 
-            <div className="flex justify-center my-4 bg-[#f7f0fc] rounded-3xl py-2 mx-4">
+            <div className="flex justify-center my-4 bg-[#f7f0fc] rounded-3xl py-2 mx-4 shadow-md">
                 <label htmlFor="inputAmt" className="text-4xl text-[#655284]">&#8377;</label>
                 <input
                     name="inputAmt"

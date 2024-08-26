@@ -1,9 +1,9 @@
 "use client"
-import GetAllContacts from "../../app/lib/actions/contactFunc";
+import { SearchAllContacts } from "../../app/lib/actions/contactFunc";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ContactCard } from "./ContactCard";
 
-export default function SelectContact ({ searchTerm, data, setFunc }: { 
+export default function SelectContact ({ searchTerm, setFunc }: { 
 searchTerm?: string,
     setFunc: Dispatch<SetStateAction<{ givenName: string | null; ContactPhone: string; contactProfile: string | null; }[]>>
 }) {
@@ -19,7 +19,7 @@ searchTerm?: string,
     useEffect(() => {
         const getContacts = async () => {
             try {
-                const contactData = await GetAllContacts();
+                const contactData = await SearchAllContacts(searchTerm!);
                 setArray(contactData)
                 console.log(contactData)
             } catch (e: any) {
@@ -27,7 +27,7 @@ searchTerm?: string,
             }
         }
         getContacts();
-    },[])
+    },[searchTerm])
 
     return (
         <div className="flex flex-wrap bg-[#8a8290] p-2 rounded-b-lg">

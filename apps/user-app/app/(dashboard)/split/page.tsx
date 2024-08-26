@@ -24,10 +24,6 @@ export default function Split () {
                 <Card ClassName="bg-[#271B2C] lg:mt-0 mt-2">
                         <div className="grid grid-cols-2 items-center">
                             <div className="text-xl text-[#e1e1e1]">Total Pending - <span className="text-2xl font-bold italic">{200}</span></div>
-                            <div className="flex">
-                                <div className="text-center leading-10 mx-2 italic text-[#833482] font-bold">{"pay in one go "}</div>
-                                <Button className={"mx-2 hover:bg-[#13D8AA] w-[40%] bg-[#864CB4] shadow-lg"}>Pay all</Button>
-                            </div>
                         </div>
                         <Card ClassName="bg-[#e1e1e1] mt-4 flex items-center w-1/2 justify-between">
                             <div className="text-xl">Create Split</div>

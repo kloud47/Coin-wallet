@@ -3,23 +3,31 @@ import { Button } from "@repo/ui/button";
 import { Suspense, useState } from "react";
 import AddContactModal from "./AddContactModal";
 import AllContact from "./AllContact";
+import { usedebounce } from "../../app/hooks/hooks";
 
 
 export default function () {
     const [openModal, setOpenModal] = useState(false)
+    const [search, setSearch] = useState("");
+    const debounceSearch = usedebounce(search)
+
+
 
     return (
         <div className="w-full p-4">
             {openModal && <AddContactModal open={openModal} close={() => setOpenModal(false)} />}
             <div className="flex mb-2">
-                <input type="text" placeholder="Search for contacts" className="rounded-xl bg-[#aaa1af] placeholder:text-[#000] w-[45%] px-4 mx-2 focus:outline-none focus:border-b-[3px] focus:border-b-[#9959C6]"/>
+                <input type="text" placeholder="Search for contacts" className="rounded-lg bg-[#aaa1af] text-[#000] placeholder:text-[#000] w-[50%] p-2 focus:outline-none focus:border-b-[3px] focus:border-b-[#9959C6]"
+                    onChange={(e:any) => setSearch(e.target.value)}
+                    value={search}
+                />
                 <Button onClick={() => setOpenModal(true)}
                     className={"bg-[#9959C6] mx-7 hover:bg-[#13D8AA] popBtn"}>
                     <AddUser />
                 </Button>
                 <div className="bg-[#000] text-[70%] popup flex justify-center rounded-md border h-[30px] items-center w-[100px]">Add new Contact</div>
             </div>
-            <AllContact />
+            <AllContact searchTerm={debounceSearch} />
         </div>
     );
 }

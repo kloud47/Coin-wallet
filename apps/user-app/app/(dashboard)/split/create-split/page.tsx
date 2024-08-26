@@ -9,16 +9,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { usedebounce } from "../../../hooks/hooks";
 
-// const debounce = (cb: () => void, delay = 1000) => {
-//     let timeout:any;
-//     return (...args) => {
-//         clearTimeout(timeout);
-//         timeout = setTimeout(() => {
-//             cb(...args)
-//         }, delay);
-//     }
-// }
-
 export default function CreateSplit () {
     const [onSelectData, setSelectData] =  useState<{ givenName: string | null; ContactPhone: string; contactProfile: string | null; }[]>([{
         givenName: "",
@@ -47,7 +37,6 @@ export default function CreateSplit () {
         return !duplicate
     })
 
-    // console.log(onSelectData);
 
     return (
         <div className="flex flex-col w-[90%] font-Roboto CardBG-Profile rounded-xl p-4">

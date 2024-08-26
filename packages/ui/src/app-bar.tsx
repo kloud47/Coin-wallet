@@ -30,7 +30,7 @@ export const AppBar = ({ user, onSignin, onSignout, avatar } : Appbar) => {
       <li className="text-3xl font-bold text-[#fff] flex flex-col justify-center text-[#D8B4FE]">
         <Link href={"/"}><span className="text-[#d19a02] font-black text-4xl">Co</span>inWallet</Link>
       </li>
-      <li className="bg-[#b7acbf] w-[20%] h-[70%] zindex-100 hover:w-[30%] duration-700 font-bold text-lg rounded-[90px] flex items-center justify-end m-2 pl-5 shadow-xl">
+      <li className="bg-[#b7acbf] h-[70%] duration-700 font-bold text-lg rounded-[90px] flex items-center justify-end m-2 pl-5 shadow-xl">
         {username && <div className="hover:scale-110 mr-5">
           <Bell />
         </div>}

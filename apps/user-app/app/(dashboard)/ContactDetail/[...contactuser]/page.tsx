@@ -19,7 +19,7 @@ export default async function ({ params } : {params: {contactuser: string}} ) {
     
     return (
         <div className="relative flex w-[90%] text-[#e0dfdf] pb-3 CardBG-Profile py-5 rounded-md duration-500 shadow-lg">
-            <Link href={"/dashboard"} className="ml-4">
+            <Link href={"/dashboard"} className="absolute ml-4">
                     <Button className={"bg-[#000] group"}><ArrowLeft size={40} className="group-hover:-translate-x-2 duration-300 ease-out" /></Button>
             </Link>
             <div className="flex flex-col w-[55%] items-center border-r-2 border-[#635D68]">

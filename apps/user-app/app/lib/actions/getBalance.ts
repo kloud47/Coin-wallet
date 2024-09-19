@@ -1,7 +1,7 @@
 "use server"
 import prisma from "@repo/coindb/client";
 import { getServerSession } from "next-auth";
-import { authoptions } from "../auth";
+import { authoptions } from "../../api/auth/[...nextauth]/auth";
 
 export async function getBalance() {
     const session = await getServerSession(authoptions);

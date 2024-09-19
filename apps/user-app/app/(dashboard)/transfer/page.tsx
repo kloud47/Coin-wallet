@@ -3,7 +3,7 @@ import { AddMoney } from "../../../components/AddMoneyCard";
 import { BalanceCard } from "../../../components/BalanceCard";
 import { OnRampTransactions } from "../../../components/transactions/OnRampTransaction";
 import { getServerSession } from "next-auth";
-import { authoptions } from "../../lib/auth";
+import { authoptions } from "../../api/auth/[...nextauth]/auth";
 import { getBalance } from "../../lib/actions/getBalance";
 
 async function getOnRampTransactions() {

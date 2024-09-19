@@ -2,7 +2,7 @@ import { SendCard } from "../../../components/SendCard";
 import { BalanceCard } from "../../../components/BalanceCard";
 import { P2pTransactions } from "../../../components/transactions/p2pTransactions";
 import { getServerSession } from "next-auth";
-import { authoptions } from "../../lib/auth";
+import { authoptions } from "../../api/auth/[...nextauth]/auth";
 import prisma from "@repo/coindb/client";
 
 async function getTransactions() {

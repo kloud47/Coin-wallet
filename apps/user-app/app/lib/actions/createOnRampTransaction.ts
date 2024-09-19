@@ -1,6 +1,6 @@
 "use server"
 import { getServerSession } from "next-auth"
-import { authoptions } from "../auth"
+import { authoptions } from "../../api/auth/[...nextauth]/auth"
 import prisma from "@repo/coindb/client";
 
 export const createRampTransaction = async (provider: string, amount: string): Promise<string> => {

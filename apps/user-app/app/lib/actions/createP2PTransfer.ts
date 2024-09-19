@@ -1,6 +1,6 @@
 "use server"
 import { getServerSession } from "next-auth"
-import { authoptions } from "../auth"
+import { authoptions } from "../../api/auth/[...nextauth]/auth"
 import prisma from "@repo/coindb/client";
 
 export async function P2Ptransfer (to: string, amount: number) {

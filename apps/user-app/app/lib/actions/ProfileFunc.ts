@@ -1,7 +1,7 @@
 "use server"
 import { getServerSession } from "next-auth"
 import prisma from "@repo/coindb/client";
-import { authoptions } from "../auth";
+import { authoptions } from "../../api/auth/[...nextauth]/auth";
 
 
 export async function FetchProfile () {
